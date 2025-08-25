@@ -60,11 +60,11 @@ const StreamingText = () => {
             Reset
           </Button>
         </div>
-        <div className="w-full columns-2 gap-8">
-          <div className="w-full h-[500px] p-4 rounded-sm bg-neutral-200 overflow-y-auto text-sm">
+        <div className="flex gap-8">
+          <div className="flex-1 h-[500px] p-4 rounded-sm bg-neutral-200 overflow-y-auto text-sm">
             <p className="whitespace-pre-wrap">{text}</p>
           </div>
-          <div className="w-full h-[500px] p-4 rounded-sm bg-neutral-200 overflow-y-auto text-sm">
+          <div className="flex-1 h-[500px] p-4 rounded-sm bg-neutral-200 overflow-y-auto text-sm">
             <p className="whitespace-pre-wrap">{animatedText}</p>
           </div>
         </div>
