@@ -4,10 +4,10 @@ import { animate, useMotionValue } from "motion/react";
 import { useEffect, useState } from "react";
 
 const useAnimatedText = (text: string) => {
-  let animatedCursor = useMotionValue(0);
-  let [cursor, setCursor] = useState(0);
-  let [prevText, setPrevText] = useState(text);
-  let [isSameText, setIsSameText] = useState(true);
+  const animatedCursor = useMotionValue(0);
+  const [cursor, setCursor] = useState(0);
+  const [prevText, setPrevText] = useState(text);
+  const [isSameText, setIsSameText] = useState(true);
 
   if (prevText !== text) {
     setPrevText(text);
@@ -23,7 +23,7 @@ const useAnimatedText = (text: string) => {
       animatedCursor.jump(0);
     }
 
-    let controls = animate(animatedCursor, text.length, {
+    const controls = animate(animatedCursor, text.length, {
       duration: 3,
       ease: "easeOut",
       onUpdate(latest) {

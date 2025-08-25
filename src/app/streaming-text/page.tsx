@@ -6,17 +6,17 @@ import useAnimatedText from "./hooks/useAnimatedText";
 import { TypographyH2 } from "@/components/Typography";
 import { Button } from "@/components/ui/button";
 
-let delay = 250;
-let characters = 50;
+const delay = 250;
+const characters = 50;
 
 const StreamingText = () => {
   const [isPlaying, setIsPlaying] = useState(false);
-  let [text, setText] = useState("");
-  let animatedText = useAnimatedText(text);
+  const [text, setText] = useState("");
+  const animatedText = useAnimatedText(text);
 
   useInterval(
     () => {
-      let newText = getNextChars(characters);
+      const newText = getNextChars(characters);
       setText((text) => text + newText);
     },
     isPlaying ? delay : null
