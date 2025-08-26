@@ -5,6 +5,8 @@ import { PauseIcon, PlayIcon, RotateCcw } from "lucide-react";
 import useAnimatedText from "./hooks/useAnimatedText";
 import { TypographyH2 } from "@/components/Typography";
 import { Button } from "@/components/ui/button";
+import { circInOut } from "motion";
+import { useInterval } from "@/lib/hooks/useInterval";
 
 const delay = 250;
 const characters = 50;
@@ -12,7 +14,10 @@ const characters = 50;
 const StreamingText = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [text, setText] = useState("");
-  const animatedText = useAnimatedText(text);
+  const animatedText = useAnimatedText(text, {
+    duration: 2,
+    ease: "linear",
+  });
 
   useInterval(
     () => {
@@ -80,30 +85,6 @@ function getNextChars(n: number) {
   const result = skateIpsum.slice(position, position + n);
   position += n;
   return result;
-}
-
-function useInterval(callback: () => void, delay: number | null) {
-  const savedCallback = useRef<() => void>(callback);
-
-  // Remember the latest callback if it changes
-  useEffect(() => {
-    savedCallback.current = callback;
-  }, [callback]);
-
-  // Set up the interval
-  useEffect(() => {
-    if (delay === null) return;
-
-    // Call the callback immediately
-    savedCallback.current?.();
-
-    function tick() {
-      savedCallback.current?.();
-    }
-
-    const id = setInterval(tick, delay);
-    return () => clearInterval(id);
-  }, [delay]);
 }
 
 const skateIpsum = `Skate ipsum dolor sit amet, il wax bluntslide Vatoland camel back locals. Shoveit crailtap baseplate Saran Wrap sponsored skate or die skater. Airwalk 50-50 frontside air drop in hardware dude hang up. Bone air coffin wall ride hard flip launch ramp bank transition. Bruised heel Primo slide bearings bone air hard flip rock and roll stoked. Full pipe coffin ollie hole downhill fakie grab Shiloh Greathouse judo air. Hard flip 540 rad regular footed goofy footed fakie out camel back. Hardware nose-bump quarter pipe Rat Bones slam varial griptape body varial.

@@ -1,9 +1,15 @@
 "use client";
 
-import { animate, useMotionValue } from "motion/react";
+import { animate, Easing, useMotionValue } from "motion/react";
 import { useEffect, useState } from "react";
 
-const useAnimatedText = (text: string) => {
+const useAnimatedText = (
+  text: string,
+  {
+    duration = 2,
+    ease = "easeOut",
+  }: { duration?: number; ease?: Easing | Easing[] } = {}
+) => {
   const animatedCursor = useMotionValue(0);
   const [cursor, setCursor] = useState(0);
   const [prevText, setPrevText] = useState(text);
@@ -24,8 +30,8 @@ const useAnimatedText = (text: string) => {
     }
 
     const controls = animate(animatedCursor, text.length, {
-      duration: 2,
-      ease: "easeOut",
+      duration,
+      ease,
       onUpdate(latest) {
         setCursor(Math.floor(latest));
       },

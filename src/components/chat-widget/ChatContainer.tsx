@@ -3,6 +3,8 @@ import { Textarea } from "../ui/textarea";
 import { X } from "lucide-react";
 import { Message as MessageType } from "./ChatWidget";
 import useAnimatedText from "@/app/streaming-text/hooks/useAnimatedText";
+import { useState } from "react";
+import { useInterval } from "@/lib/hooks/useInterval";
 
 export default function ChatContainer({
   isOpen,
@@ -17,6 +19,7 @@ export default function ChatContainer({
 }) {
   return (
     <motion.div
+      layoutRoot
       variants={variants}
       animate={isOpen ? "open" : "closed"}
       transition={{
@@ -31,17 +34,6 @@ export default function ChatContainer({
         className="flex flex-col h-full bg-white rounded-sm w-full text-black relative"
         variants={chatVariants}
         animate={isOpen ? "open" : "closed"}
-        transition={
-          isOpen
-            ? {
-                duration: 0.5,
-                ease: "easeInOut",
-              }
-            : {
-                duration: 0,
-                ease: "easeOut",
-              }
-        }
       >
         <motion.button
           onClick={handleToggleOpen}
@@ -52,7 +44,7 @@ export default function ChatContainer({
 
         {/* chat messages */}
         <ul className="flex flex-col flex-1 justify-end gap-2 p-2 pt-10 overflow-y-scroll">
-          <AnimatePresence initial={false} mode="popLayout">
+          <AnimatePresence mode="popLayout">
             {messages.map((message, index) => (
               <Message key={index} {...message} index={index} />
             ))}
@@ -118,7 +110,10 @@ function Message({
   content: string;
   index: number;
 }) {
-  const animatedText = useAnimatedText(content);
+  const animatedText = useAnimatedText(content, {
+    duration: 1,
+    ease: "linear",
+  });
 
   return (
     <motion.li
@@ -130,8 +125,7 @@ function Message({
         opacity: { duration: 0.15 },
         layout: { duration: index * 0.2 },
         type: "spring",
-        stiffness: 150,
-        damping: 10,
+        bounce: 0.4,
       }}
       style={{ originX: role === "user" ? "right" : "left", originY: "bottom" }}
       className={`list-none rounded-sm px-1.5 py-1 text-sm ${

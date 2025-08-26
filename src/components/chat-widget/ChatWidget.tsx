@@ -64,6 +64,7 @@ export default function ChatWidget() {
     <>
       <div className="fixed bottom-6 right-6">
         <motion.button
+          layoutRoot
           whileHover={buttonResponse}
           whileFocus={buttonResponse}
           whileTap={{ scale: 0.95 }}
