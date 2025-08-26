@@ -24,7 +24,7 @@ const useAnimatedText = (text: string) => {
     }
 
     const controls = animate(animatedCursor, text.length, {
-      duration: 3,
+      duration: 2,
       ease: "easeOut",
       onUpdate(latest) {
         setCursor(Math.floor(latest));
