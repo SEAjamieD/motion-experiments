@@ -1,10 +1,10 @@
+import { useRef, useLayoutEffect } from "react";
 import {
   motion,
   MotionValue,
   useMotionValue,
   useTransform,
 } from "motion/react";
-import { useRef, useLayoutEffect, useEffect } from "react";
 
 export default function Block({
   cursorX,
@@ -14,7 +14,8 @@ export default function Block({
   cursorY: MotionValue<number>;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const center = useMotionValue({ x: 0, y: 0 });
+  const cX = useMotionValue<number>(0);
+  const cY = useMotionValue<number>(0);
 
   useLayoutEffect(() => {
     let frame: number | null = null;
@@ -24,10 +25,8 @@ export default function Block({
       frame = requestAnimationFrame(() => {
         if (!ref.current) return;
         const bounds = ref.current.getBoundingClientRect();
-        center.set({
-          x: bounds.left + bounds.width / 2,
-          y: bounds.top + bounds.height / 2,
-        });
+        cX.set(bounds.left + bounds.width / 2);
+        cY.set(bounds.top + bounds.height / 2);
       });
     };
 
@@ -40,17 +39,14 @@ export default function Block({
     };
   }, []);
 
-  const degrees = useTransform(
-    [cursorX, cursorY, center],
-    () => {
-      const { x: cx, y: cy } = center.get();
-      const x = cursorX.get() - cx;
-      const y = cursorY.get() - cy;
-      const angle = Math.atan2(y, x) * (180 / Math.PI);
-      return angle - 90;
-    },
-    [0, 360]
-  );
+  const degrees = useTransform([cursorX, cursorY, cX, cY], () => {
+    const cx = cX.get();
+    const cy = cY.get();
+    const x = cursorX.get() - cx;
+    const y = cursorY.get() - cy;
+    const angle = Math.atan2(y, x) * (180 / Math.PI);
+    return angle - 90;
+  });
 
   return (
     <motion.div
