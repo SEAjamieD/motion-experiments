@@ -12,9 +12,16 @@ import { useRef } from "react";
 
 export default function Page() {
   return (
-    <div className="flex flex-col h-full ">
+    <div
+      className="flex flex-col h-full p-4"
+      style={{
+        backgroundColor: "#833AB4",
+        background:
+          "linear-gradient(162deg, rgba(131, 58, 180, 1) 0%, rgba(231, 29, 253, 1) 52%, rgba(122, 150, 214, 1) 74%, rgba(252, 249, 69, 1) 100%)",
+      }}
+    >
       <TypographyH2>Apple Dock</TypographyH2>
-      <div className="flex flex-col flex-1 justify-end pb-24">
+      <div className="flex flex-col flex-1 justify-end pb-8">
         <Dock />
       </div>
     </div>
@@ -31,6 +38,12 @@ function Dock() {
       }}
       onMouseLeave={() => mouseX.set(Infinity)}
       className="flex items-end w-fit h-16 mx-auto gap-4 px-4 pb-3 rounded-2xl bg-neutral-400 "
+      style={{
+        background: "rgba(255, 255, 255, 0.2)",
+        boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+        backdropFilter: "blur(5px)",
+        border: "1px solid rgba(255, 255, 255, 0.3)",
+      }}
     >
       {[...Array(6)].map((_, index) => (
         <DockItem key={index} mouseX={mouseX} />
@@ -55,7 +68,7 @@ function DockItem({ mouseX }: { mouseX: MotionValue<number> }) {
     <motion.div
       ref={ref}
       style={{ width }}
-      className="bg-neutral-500 flex items-center rounded-full w-10 aspect-square"
+      className="bg-neutral-500 flex items-center rounded-lg w-10 aspect-square"
     />
   );
 }

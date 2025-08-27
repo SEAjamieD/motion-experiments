@@ -38,7 +38,7 @@ const StreamingText = () => {
   };
 
   return (
-    <div className="max-w-screen-md mx-auto mt-8">
+    <div className="max-w-screen-md mx-auto mt-8 p-4">
       <TypographyH2>Streaming Text</TypographyH2>
       <div className="mt-4">
         <div className="flex gap-2 mb-4">

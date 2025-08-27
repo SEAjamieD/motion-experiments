@@ -3,7 +3,7 @@ import { TypographyH1 } from "@/components/Typography";
 
 const App = () => {
   return (
-    <div>
+    <div className="p-4">
       <TypographyH1>Motion Experiments</TypographyH1>
       <div className="flex flex-col">
         <Link href="/streaming-text">Streaming Text</Link>
