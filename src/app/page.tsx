@@ -8,6 +8,7 @@ const App = () => {
       <div className="flex flex-col">
         <Link href="/streaming-text">Streaming Text</Link>
         <Link href="/apple-dock">Apple Dock</Link>
+        <Link href="/cursor-follow">Cursor Follow</Link>
       </div>
     </div>
   );
